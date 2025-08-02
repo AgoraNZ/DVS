@@ -2,257 +2,131 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>DVS NZ – Seasonal Settings Guide</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Quick, easy DVS home ventilation settings for New Zealand. Automatically shows correct settings for the current NZ season.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500;700&display=swap" rel="stylesheet">
+  <title>DVS Simple Seasonal Settings – NZ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    :root {
-      --primary: #1656a6;
-      --secondary: #ff851b;
-      --bg: #f6fbff;
-      --card: #fff;
-      --border: #e3e9f2;
-      --shadow: 0 2px 24px #0011;
-      --success: #007b44;
-      --info: #1762d1;
-      --icon-size: 2.1em;
-    }
-    html, body {
-      margin: 0; padding: 0;
-      font-family: 'Roboto', Arial, sans-serif;
-      background: var(--bg);
-      min-height: 100vh;
-      color: #12304a;
-    }
-    .container {
-      max-width: 410px;
-      margin: 34px auto 0 auto;
-      background: var(--card);
-      border-radius: 16px;
-      box-shadow: var(--shadow);
-      padding: 32px 20px 24px 20px;
-    }
-    .header {
-      display: flex; align-items: center; gap: 14px;
-      margin-bottom: 12px;
-    }
-    .icon {
-      font-size: var(--icon-size);
-      width: 1.1em;
-      height: 1.1em;
-      display: flex; align-items: center; justify-content: center;
-    }
-    h1 {
-      font-size: 1.28em;
-      margin: 0 0 2px 0;
-      color: var(--primary);
-      font-weight: 700;
-      letter-spacing: 0.03em;
-    }
-    .season-label {
-      color: var(--secondary);
-      font-size: 1.08em;
-      letter-spacing: 0.15em;
-      font-weight: 700;
-      margin-bottom: 18px;
-    }
-    .settings-card {
-      background: #f8fbff;
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      box-shadow: 0 2px 8px #0012;
-      padding: 16px 18px 12px 18px;
-      margin-bottom: 20px;
-    }
-    .settings-list {
-      list-style: none; padding: 0; margin: 0;
-    }
-    .settings-list li {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 8px 0;
-      font-size: 1.1em;
-      border-bottom: 1px dashed #e4eaf2;
-    }
-    .settings-list li:last-child {
-      border-bottom: none;
-    }
-    .setting-name {
-      color: #275b9b;
-      font-weight: 500;
-    }
-    .setting-value {
-      font-weight: 700;
-      color: #0d2e55;
-      font-family: inherit;
-      letter-spacing: 0.01em;
-    }
-    .instructions {
-      margin-top: 8px;
-      padding: 16px 18px;
-      background: #f2f8ff;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px #0011;
-      font-size: 1.08em;
-      line-height: 1.7;
-    }
-    .instructions b {
-      color: var(--info);
-    }
-    .footer {
-      text-align: center;
-      color: #adbbcc;
-      font-size: 0.97em;
-      margin: 30px 0 0 0;
-      padding-bottom: 8px;
-      letter-spacing: 0.05em;
-    }
-    @media (max-width: 540px) {
-      .container { margin: 0; border-radius: 0; box-shadow: none; }
-      .settings-card, .instructions { padding: 12px 8px; }
-      .header { gap: 9px; }
+    html, body { font-family: Arial, sans-serif; background: #f7fafc; margin: 0; padding: 0;}
+    .container { max-width: 430px; background: #fff; margin: 40px auto; border-radius: 14px; box-shadow: 0 4px 20px #2222; padding: 36px 22px 24px 22px;}
+    h1 { text-align: center; color: #1b375a;}
+    .season { text-align: center; font-size: 1.3em; margin: 12px 0 30px 0; color: #157d86;}
+    table { width: 100%; border-collapse: collapse; margin-bottom: 20px;}
+    th, td { padding: 12px 8px; text-align: center; }
+    th { background: #e6effa; color: #215080;}
+    tr:nth-child(even) { background: #f1f8fb; }
+    tr:nth-child(odd) { background: #fff; }
+    .instructions { background: #f9fafc; border: 1px solid #d5e2ef; border-radius: 8px; padding: 16px 12px; margin-top: 24px;}
+    .step { margin-bottom: 7px;}
+    @media (max-width: 600px) {
+      .container { max-width: 98vw; padding: 9vw 2vw;}
+      h1 { font-size: 1.1em;}
+      th, td { font-size: 0.98em;}
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="header">
-      <div id="season-icon" class="icon"></div>
-      <div>
-        <h1>DVS NZ Settings</h1>
-        <div class="season-label" id="season-label"></div>
-      </div>
-    </div>
-    <div class="settings-card">
-      <ul class="settings-list" id="settings-list"></ul>
-    </div>
-    <div class="instructions" id="instructions"></div>
-    <div class="footer">
-      &copy; 2025 DVS NZ Quick Guide – Auto-updates for today’s NZ season.
+    <h1>DVS Simple Settings (NZ)</h1>
+    <div class="season" id="season"></div>
+    <table>
+      <tr>
+        <th>Fan Speed</th>
+        <th>Heat Recovery</th>
+        <th>Heat Retention</th>
+        <th>Humidity Sensitivity</th>
+        <th>Humidity Delay</th>
+        <th>Set Temp</th>
+      </tr>
+      <tr id="winterRow">
+        <td>3–4 bars</td>
+        <td>ON (7 bars)</td>
+        <td>OFF</td>
+        <td>High (Hi)</td>
+        <td>Instant</td>
+        <td>23°C</td>
+      </tr>
+      <tr id="summerRow">
+        <td>2–3 bars</td>
+        <td>OFF</td>
+        <td>OFF</td>
+        <td>Medium (Med)</td>
+        <td>10 min</td>
+        <td>19°C</td>
+      </tr>
+    </table>
+    <div class="instructions" id="instructions">
+      <!-- Steps will be inserted here -->
     </div>
   </div>
   <script>
-    // --- Define all seasonal data ---
-    const SEASON_DATA = {
-      Winter: {
-        icon: "❄️",
-        name: "Winter (June–August)",
-        settings: [
-          { name: "Heat Recovery", value: "ON (7 bars)" },
-          { name: "Heat Retention", value: "OFF (0 bars)" },
-          { name: "Humidity Sensitivity", value: "HIGH (Hi)" },
-          { name: "Humidity Delay", value: "Instant" },
-          { name: "Fan Speed", value: "Medium (4 bars)" },
-          { name: "Set Temperature", value: "22–23 °C" }
-        ],
-        instructions: [
-          "<b>1.</b> Press <b>Menu</b> on your DVS controller.",
-          "<b>2.</b> Select <b>Heat Recovery</b> → set to <b>7 bars</b>.",
-          "<b>3.</b> Select <b>Heat Retention</b> → set to <b>0 bars (OFF)</b>.",
-          "<b>4.</b> Select <b>Humidity Sensitivity</b> → choose <b>Hi</b>.",
-          "<b>5.</b> Select <b>Humidity Delay</b> → set to <b>Instant</b>.",
-          "<b>6.</b> Select <b>Fan Speed</b> → set to <b>4 bars</b>.",
-          "<b>7.</b> Select <b>Set Temperature</b> → adjust to <b>22–23 °C</b>.",
-          "<b>8.</b> Press <b>Home</b> to finish."
-        ]
-      },
-      Summer: {
-        icon: "☀️",
-        name: "Summer (December–February)",
-        settings: [
-          { name: "Heat Recovery", value: "OFF (0 bars)" },
-          { name: "Heat Retention", value: "OFF (0 bars)" },
-          { name: "Humidity Sensitivity", value: "MEDIUM (Med)" },
-          { name: "Humidity Delay", value: "10 mins" },
-          { name: "Fan Speed", value: "Low–Medium (2–3 bars)" },
-          { name: "Set Temperature", value: "18–20 °C" }
-        ],
-        instructions: [
-          "<b>1.</b> Press <b>Menu</b> on your DVS controller.",
-          "<b>2.</b> Select <b>Heat Recovery</b> → set to <b>0 bars (OFF)</b>.",
-          "<b>3.</b> Select <b>Heat Retention</b> → set to <b>0 bars (OFF)</b>.",
-          "<b>4.</b> Select <b>Humidity Sensitivity</b> → choose <b>Med</b>.",
-          "<b>5.</b> Select <b>Humidity Delay</b> → set to <b>10 mins</b>.",
-          "<b>6.</b> Select <b>Fan Speed</b> → set to <b>2–3 bars</b>.",
-          "<b>7.</b> Select <b>Set Temperature</b> → adjust to <b>18–20 °C</b>.",
-          "<b>8.</b> Press <b>Home</b> to finish."
-        ]
-      },
-      Spring: {
-        icon: "🌱",
-        name: "Spring (September–November)",
-        settings: [
-          { name: "Heat Recovery", value: "ON (5 bars)" },
-          { name: "Heat Retention", value: "OFF (0 bars)" },
-          { name: "Humidity Sensitivity", value: "MEDIUM (Med)" },
-          { name: "Humidity Delay", value: "5 mins" },
-          { name: "Fan Speed", value: "Medium (3–4 bars)" },
-          { name: "Set Temperature", value: "20–21 °C" }
-        ],
-        instructions: [
-          "<b>1.</b> Press <b>Menu</b> on your DVS controller.",
-          "<b>2.</b> Select <b>Heat Recovery</b> → set to <b>5 bars</b>.",
-          "<b>3.</b> Select <b>Heat Retention</b> → set to <b>0 bars (OFF)</b>.",
-          "<b>4.</b> Select <b>Humidity Sensitivity</b> → choose <b>Med</b>.",
-          "<b>5.</b> Select <b>Humidity Delay</b> → set to <b>5 mins</b>.",
-          "<b>6.</b> Select <b>Fan Speed</b> → set to <b>3–4 bars</b>.",
-          "<b>7.</b> Select <b>Set Temperature</b> → adjust to <b>20–21 °C</b>.",
-          "<b>8.</b> Press <b>Home</b> to finish."
-        ]
-      },
-      Autumn: {
-        icon: "🍂",
-        name: "Autumn (March–May)",
-        settings: [
-          { name: "Heat Recovery", value: "ON (4 bars)" },
-          { name: "Heat Retention", value: "OFF (0 bars)" },
-          { name: "Humidity Sensitivity", value: "MEDIUM (Med)" },
-          { name: "Humidity Delay", value: "5 mins" },
-          { name: "Fan Speed", value: "Medium (3 bars)" },
-          { name: "Set Temperature", value: "20–21 °C" }
-        ],
-        instructions: [
-          "<b>1.</b> Press <b>Menu</b> on your DVS controller.",
-          "<b>2.</b> Select <b>Heat Recovery</b> → set to <b>4 bars</b>.",
-          "<b>3.</b> Select <b>Heat Retention</b> → set to <b>0 bars (OFF)</b>.",
-          "<b>4.</b> Select <b>Humidity Sensitivity</b> → choose <b>Med</b>.",
-          "<b>5.</b> Select <b>Humidity Delay</b> → set to <b>5 mins</b>.",
-          "<b>6.</b> Select <b>Fan Speed</b> → set to <b>3 bars</b>.",
-          "<b>7.</b> Select <b>Set Temperature</b> → adjust to <b>20–21 °C</b>.",
-          "<b>8.</b> Press <b>Home</b> to finish."
-        ]
+    // Determine NZ season by browser date (Winter: June–Aug, Summer: Dec–Feb)
+    function getNZSeason() {
+      const now = new Date();
+      // UTC+12 for NZ (ignoring DST for simplicity; real logic could add 1hr in Sep-Apr)
+      let month = now.getUTCMonth() + 1; // 1–12
+      // Get real NZ month (browser timezone might not be NZ so approximate using UTC+12)
+      const hour = now.getUTCHours();
+      if (hour < 12) {
+        // If before midday UTC, NZ is already on next day, bump month if 31st
+        if (now.getUTCDate() === new Date(now.getUTCFullYear(), now.getUTCMonth()+1, 0).getDate()) {
+          month = (month % 12) + 1;
+        }
       }
-    };
-
-    // --- Detect NZ season from browser time ---
-    function getNZSeason(date) {
-      const nzDate = new Date(date.toLocaleString('en-US', { timeZone: 'Pacific/Auckland' }));
-      const month = nzDate.getMonth() + 1;
-      if (month === 12 || month === 1 || month === 2) return "Summer";
-      if (month >= 3 && month <= 5) return "Autumn";
+      // NZ Summer: Dec–Feb; NZ Winter: Jun–Aug; Shoulder: Mar–May & Sep–Nov
+      if (month === 12 || month <= 2) return "Summer";
       if (month >= 6 && month <= 8) return "Winter";
+      if (month >= 3 && month <= 5) return "Autumn";
       return "Spring";
     }
-    const thisSeason = getNZSeason(new Date());
-    const SEASON = SEASON_DATA[thisSeason];
-
-    // --- Render icons and settings ---
-    document.getElementById("season-icon").textContent = SEASON.icon;
-    document.getElementById("season-label").textContent = SEASON.name;
-
-    const list = document.getElementById("settings-list");
-    list.innerHTML = "";
-    for (const item of SEASON.settings) {
-      const li = document.createElement("li");
-      li.innerHTML = `<span class="setting-name">${item.name}</span><span class="setting-value">${item.value}</span>`;
-      list.appendChild(li);
+    function updateUI() {
+      const season = getNZSeason();
+      const seasonDiv = document.getElementById('season');
+      const winterRow = document.getElementById('winterRow');
+      const summerRow = document.getElementById('summerRow');
+      const inst = document.getElementById('instructions');
+      if (season === "Winter") {
+        seasonDiv.textContent = "Current Season: ❄️ WINTER (June–August)";
+        winterRow.style.fontWeight = "bold";
+        summerRow.style.display = "none";
+        inst.innerHTML = `
+        <b>Quick Setup – WINTER</b><br>
+        <div class="step">1. Set <b>Fan Speed</b> to <b>3–4 bars</b>.</div>
+        <div class="step">2. In Menu, tap <b>Heat Recovery</b> → <b>ON</b> (all 7 bars).</div>
+        <div class="step">3. Tap <b>Heat Retention</b> → <b>OFF</b>.</div>
+        <div class="step">4. Tap <b>Humidity Sensitivity</b> → <b>High (Hi)</b>.</div>
+        <div class="step">5. Tap <b>Humidity Delay</b> → <b>Instant</b>.</div>
+        <div class="step">6. Tap <b>Set Temperature</b> → <b>23°C</b>.</div>
+        <div class="step">That's it! Helps eliminate condensation & keep windows clear.</div>
+        `;
+      } else if (season === "Summer") {
+        seasonDiv.textContent = "Current Season: ☀️ SUMMER (December–February)";
+        summerRow.style.fontWeight = "bold";
+        winterRow.style.display = "none";
+        inst.innerHTML = `
+        <b>Quick Setup – SUMMER</b><br>
+        <div class="step">1. Set <b>Fan Speed</b> to <b>2–3 bars</b>.</div>
+        <div class="step">2. In Menu, tap <b>Heat Recovery</b> → <b>OFF</b>.</div>
+        <div class="step">3. Tap <b>Heat Retention</b> → <b>OFF</b>.</div>
+        <div class="step">4. Tap <b>Humidity Sensitivity</b> → <b>Medium (Med)</b>.</div>
+        <div class="step">5. Tap <b>Humidity Delay</b> → <b>10 min</b>.</div>
+        <div class="step">6. Tap <b>Set Temperature</b> → <b>19°C</b>.</div>
+        <div class="step">That's it! Enjoy a cool, fresh home in summer.</div>
+        `;
+      } else {
+        seasonDiv.textContent = "Current Season: Shoulder (Spring/Autumn)";
+        winterRow.style.display = "";
+        summerRow.style.display = "";
+        winterRow.style.fontWeight = "normal";
+        summerRow.style.fontWeight = "normal";
+        inst.innerHTML = `
+        <b>Quick Setup – Shoulder Season</b><br>
+        <div class="step">Try <b>Winter</b> settings if mornings are cold or condensation appears.</div>
+        <div class="step">Try <b>Summer</b> settings if home is stuffy or too warm.</div>
+        <div class="step">Adjust <b>Fan Speed</b> and <b>Set Temperature</b> as needed.</div>
+        <div class="step">Fine-tune for comfort!</div>
+        `;
+      }
     }
-
-    // --- Render instructions ---
-    document.getElementById("instructions").innerHTML =
-      "<b>How to set your DVS:</b><br>" + SEASON.instructions.map(s => `<div>${s}</div>`).join("");
+    updateUI();
   </script>
 </body>
 </html>
