@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DVS Seasonal Settings – NZ</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #f3f7fb;
+      color: #15304b;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      background: #fff;
+      max-width: 440px;
+      margin: 40px auto;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px #0001;
+      padding: 32px 24px 24px 24px;
+    }
+    h1 {
+      font-size: 1.5em;
+      margin-bottom: 8px;
+      color: #001F3F;
+    }
+    .season {
+      font-size: 1.1em;
+      margin-bottom: 18px;
+      font-weight: bold;
+      color: #FF851B;
+      letter-spacing: 0.2em;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 12px 0;
+    }
+    th, td {
+      text-align: left;
+      padding: 7px 4px;
+      border-bottom: 1px solid #eee;
+      font-size: 1em;
+    }
+    th {
+      background: #f7fafb;
+      color: #001F3F;
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+    .instructions {
+      margin: 18px 0 0 0;
+      padding: 14px 16px 14px 20px;
+      background: #f8faff;
+      border-radius: 10px;
+      font-size: 1.06em;
+      box-shadow: 0 1px 4px #0001;
+    }
+    .step {
+      margin-bottom: 8px;
+    }
+    @media (max-width: 500px) {
+      .container { padding: 12px 2vw; }
+      h1 { font-size: 1.15em; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>DVS Settings – Simple NZ Seasonal Guide</h1>
+    <div id="season" class="season"></div>
+    <table>
+      <thead>
+        <tr>
+          <th>Setting</th>
+          <th id="season-col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Heat Recovery</td>
+          <td id="heat-recovery"></td>
+        </tr>
+        <tr>
+          <td>Heat Retention</td>
+          <td id="heat-retention"></td>
+        </tr>
+        <tr>
+          <td>Humidity Sensitivity</td>
+          <td id="humidity-sensitivity"></td>
+        </tr>
+        <tr>
+          <td>Humidity Delay</td>
+          <td id="humidity-delay"></td>
+        </tr>
+        <tr>
+          <td>Fan Speed</td>
+          <td id="fan-speed"></td>
+        </tr>
+        <tr>
+          <td>Set Temperature</td>
+          <td id="set-temp"></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="instructions" id="instructions"></div>
+  </div>
+  <script>
+    // NZ seasons: Winter (Jun-Aug), Spring (Sep-Nov), Summer (Dec-Feb), Autumn (Mar-May)
+    function getNZSeason(date) {
+      const nzDate = new Date(date.toLocaleString('en-US', { timeZone: 'Pacific/Auckland' }));
+      const month = nzDate.getMonth() + 1; // JS months 0-11
+      if (month === 12 || month === 1 || month === 2) return "Summer";
+      if (month >= 3 && month <= 5) return "Autumn";
+      if (month >= 6 && month <= 8) return "Winter";
+      return "Spring";
+    }
+    const season = getNZSeason(new Date());
+
+    // Define settings per season
+    const data = {
+      Winter: {
+        name: "Winter ❄️ (June–August)",
+        table: {
+          "Heat Recovery": "ON (7 bars)",
+          "Heat Retention": "OFF (0 bars)",
+          "Humidity Sensitivity": "HIGH (Hi)",
+          "Humidity Delay": "Instant",
+          "Fan Speed": "Medium (4 bars)",
+          "Set Temperature": "22–23 °C"
+        },
+        steps: [
+          "1. Press <b>Menu</b> on your DVS controller.",
+          "2. Select <b>Heat Recovery</b> → set to <b>7 bars</b>.",
+          "3. Select <b>Heat Retention</b> → set to <b>0 bars (OFF)</b>.",
+          "4. Select <b>Humidity Sensitivity</b> → choose <b>Hi</b>.",
+          "5. Select <b>Humidity Delay</b> → set to <b>Instant</b>.",
+          "6. Select <b>Fan Speed</b> → set to <b>4 bars</b>.",
+          "7. Select <b>Set Temperature</b> → adjust to <b>22–23 °C</b>.",
+          "8. Press <b>Home</b> to finish."
+        ]
+      },
+      Summer: {
+        name: "Summer ☀️ (December–February)",
+        table: {
+          "Heat Recovery": "OFF (0 bars)",
+          "Heat Retention": "OFF (0 bars)",
+          "Humidity Sensitivity": "MEDIUM (Med)",
+          "Humidity Delay": "10 mins",
+          "Fan Speed": "Low–Medium (2–3 bars)",
+          "Set Temperature": "18–20 °C"
+        },
+        steps: [
+          "1. Press <b>Menu</b> on your DVS controller.",
+          "2. Select <b>Heat Recovery</b> → set to <b>0 bars (OFF)</b>.",
+          "3. Select <b>Heat Retention</b> → set to <b>0 bars (OFF)</b>.",
+          "4. Select <b>Humidity Sensitivity</b> → choose <b>Med</b>.",
+          "5. Select <b>Humidity Delay</b> → set to <b>10 mins</b>.",
+          "6. Select <b>Fan Speed</b> → set to <b>2–3 bars</b>.",
+          "7. Select <b>Set Temperature</b> → adjust to <b>18–20 °C</b>.",
+          "8. Press <b>Home</b> to finish."
+        ]
+      },
+      Spring: {
+        name: "Spring 🌱 (September–November)",
+        table: {
+          "Heat Recovery": "ON (5 bars)",
+          "Heat Retention": "OFF (0 bars)",
+          "Humidity Sensitivity": "MEDIUM (Med)",
+          "Humidity Delay": "5 mins",
+          "Fan Speed": "Medium (3–4 bars)",
+          "Set Temperature": "20–21 °C"
+        },
+        steps: [
+          "1. Press <b>Menu</b> on your DVS controller.",
+          "2. Select <b>Heat Recovery</b> → set to <b>5 bars</b>.",
+          "3. Select <b>Heat Retention</b> → set to <b>0 bars (OFF)</b>.",
+          "4. Select <b>Humidity Sensitivity</b> → choose <b>Med</b>.",
+          "5. Select <b>Humidity Delay</b> → set to <b>5 mins</b>.",
+          "6. Select <b>Fan Speed</b> → set to <b>3–4 bars</b>.",
+          "7. Select <b>Set Temperature</b> → adjust to <b>20–21 °C</b>.",
+          "8. Press <b>Home</b> to finish."
+        ]
+      },
+      Autumn: {
+        name: "Autumn 🍂 (March–May)",
+        table: {
+          "Heat Recovery": "ON (4 bars)",
+          "Heat Retention": "OFF (0 bars)",
+          "Humidity Sensitivity": "MEDIUM (Med)",
+          "Humidity Delay": "5 mins",
+          "Fan Speed": "Medium (3 bars)",
+          "Set Temperature": "20–21 °C"
+        },
+        steps: [
+          "1. Press <b>Menu</b> on your DVS controller.",
+          "2. Select <b>Heat Recovery</b> → set to <b>4 bars</b>.",
+          "3. Select <b>Heat Retention</b> → set to <b>0 bars (OFF)</b>.",
+          "4. Select <b>Humidity Sensitivity</b> → choose <b>Med</b>.",
+          "5. Select <b>Humidity Delay</b> → set to <b>5 mins</b>.",
+          "6. Select <b>Fan Speed</b> → set to <b>3 bars</b>.",
+          "7. Select <b>Set Temperature</b> → adjust to <b>20–21 °C</b>.",
+          "8. Press <b>Home</b> to finish."
+        ]
+      }
+    };
+
+    // Fill table
+    document.getElementById("season").textContent = data[season].name;
+    document.getElementById("season-col").textContent = season + " Setting";
+    document.getElementById("heat-recovery").textContent = data[season].table["Heat Recovery"];
+    document.getElementById("heat-retention").textContent = data[season].table["Heat Retention"];
+    document.getElementById("humidity-sensitivity").textContent = data[season].table["Humidity Sensitivity"];
+    document.getElementById("humidity-delay").textContent = data[season].table["Humidity Delay"];
+    document.getElementById("fan-speed").textContent = data[season].table["Fan Speed"];
+    document.getElementById("set-temp").textContent = data[season].table["Set Temperature"];
+
+    // Fill instructions
+    document.getElementById("instructions").innerHTML =
+      "<b>How to Set:</b><br>" + data[season].steps.map(s => `<div class="step">${s}</div>`).join("");
+  </script>
+</body>
+</html>
