@@ -2,49 +2,52 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>DVS Seasonal Settings – NZ</title>
+  <title>DVS Simple NZ Seasonal Settings</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Quick guide for DVS home ventilation seasonal settings in New Zealand. Shows exact instructions and recommended values for every season.">
   <style>
-    body {
-      font-family: "Segoe UI", Arial, sans-serif;
+    html, body {
       background: #f3f7fb;
-      color: #15304b;
       margin: 0;
       padding: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: #15304b;
+      min-height: 100vh;
     }
     .container {
       background: #fff;
       max-width: 440px;
       margin: 40px auto;
       border-radius: 16px;
-      box-shadow: 0 4px 24px #0001;
+      box-shadow: 0 4px 24px #0012;
       padding: 32px 24px 24px 24px;
     }
     h1 {
-      font-size: 1.5em;
-      margin-bottom: 8px;
+      font-size: 1.45em;
+      margin-bottom: 6px;
       color: #001F3F;
+      letter-spacing: 0.01em;
     }
     .season {
       font-size: 1.1em;
-      margin-bottom: 18px;
+      margin-bottom: 17px;
       font-weight: bold;
       color: #FF851B;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.18em;
     }
     table {
       width: 100%;
       border-collapse: collapse;
-      margin: 16px 0 12px 0;
+      margin: 14px 0 10px 0;
+      font-size: 1em;
     }
     th, td {
       text-align: left;
-      padding: 7px 4px;
-      border-bottom: 1px solid #eee;
-      font-size: 1em;
+      padding: 7px 5px;
+      border-bottom: 1px solid #f0f0f0;
     }
     th {
-      background: #f7fafb;
+      background: #f8faff;
       color: #001F3F;
     }
     tr:last-child td {
@@ -55,21 +58,31 @@
       padding: 14px 16px 14px 20px;
       background: #f8faff;
       border-radius: 10px;
-      font-size: 1.06em;
+      font-size: 1.05em;
       box-shadow: 0 1px 4px #0001;
     }
     .step {
       margin-bottom: 8px;
+      line-height: 1.6;
+    }
+    .footer {
+      text-align: center;
+      color: #bbc3cd;
+      font-size: 0.9em;
+      margin: 26px 0 0 0;
+      padding-bottom: 10px;
+      letter-spacing: 0.08em;
     }
     @media (max-width: 500px) {
       .container { padding: 12px 2vw; }
-      h1 { font-size: 1.15em; }
+      h1 { font-size: 1.11em; }
+      table, th, td { font-size: 0.99em; }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>DVS Settings – Simple NZ Seasonal Guide</h1>
+    <h1>DVS NZ – Simple Seasonal Settings</h1>
     <div id="season" class="season"></div>
     <table>
       <thead>
@@ -106,10 +119,15 @@
       </tbody>
     </table>
     <div class="instructions" id="instructions"></div>
+    <div class="footer">
+      &copy; 2025 Simple DVS NZ Guide<br>
+      Auto-adjusts for the current New Zealand season.
+    </div>
   </div>
   <script>
     // NZ seasons: Winter (Jun-Aug), Spring (Sep-Nov), Summer (Dec-Feb), Autumn (Mar-May)
     function getNZSeason(date) {
+      // Use Auckland timezone (same for all of NZ for this use case)
       const nzDate = new Date(date.toLocaleString('en-US', { timeZone: 'Pacific/Auckland' }));
       const month = nzDate.getMonth() + 1; // JS months 0-11
       if (month === 12 || month === 1 || month === 2) return "Summer";
@@ -119,7 +137,7 @@
     }
     const season = getNZSeason(new Date());
 
-    // Define settings per season
+    // Settings for each season
     const data = {
       Winter: {
         name: "Winter ❄️ (June–August)",
@@ -207,7 +225,7 @@
       }
     };
 
-    // Fill table
+    // Populate table and instructions
     document.getElementById("season").textContent = data[season].name;
     document.getElementById("season-col").textContent = season + " Setting";
     document.getElementById("heat-recovery").textContent = data[season].table["Heat Recovery"];
@@ -217,7 +235,7 @@
     document.getElementById("fan-speed").textContent = data[season].table["Fan Speed"];
     document.getElementById("set-temp").textContent = data[season].table["Set Temperature"];
 
-    // Fill instructions
+    // Step-by-step
     document.getElementById("instructions").innerHTML =
       "<b>How to Set:</b><br>" + data[season].steps.map(s => `<div class="step">${s}</div>`).join("");
   </script>
